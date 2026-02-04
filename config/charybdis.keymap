@@ -1,107 +1,71 @@
-#include <dt-bindings/zmk/mouse.h>
 #include <behaviors.dtsi>
-#include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/pointing.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/mouse.h>
 
-&lt {
-    tapping-term-ms = <200>;
-    flavor = "balanced";
-    quick-tap-ms = <150>;
-};
+// 레이어 정의
+#define BASE 0
+#define EXCEL 1
+#define BANK 2
+#define SYM 3
 
 / {
+    behaviors {
+        [span_6](start_span)[span_7](start_span)// OSL (One-Shot Layer) 설정[span_6](end_span)[span_7](end_span)
+        osl: one_shot_layer {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "tap-preferred";
+            bindings = <&mo>, <&sl>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
-        layer_0 {
+        [span_8](start_span)// LAYER 0 : BASE[span_8](end_span)
+        base_layer {
             bindings = <
-&tog 2        &kp N1  &kp N2  &kp N3   &kp N4     &kp N5        &kp N6         &kp N7     &kp N8     &kp N9            &kp N0    &kp BACKSPACE
-&kp LEFT_WIN  &kp Q   &kp W   &kp E    &kp R      &kp T         &kp Y          &kp U      &kp I      &kp O             &kp P     &kp BSLH
-&kp LEFT_ALT  &kp A   &kp S   &kp D    &kp F      &kp G         &kp H          &kp J      &kp K      &kp L             &kp SEMI  &kp SQT
-&kp LCTRL     &kp Z   &kp X   &kp C    &kp V      &kp B         &kp N          &kp M      &kp COMMA  &kp LEFT_BRACKET  &kp FSLH  &kp MINUS
-                              &kp TAB  &kp SPACE  &kp ESCAPE    &kp BACKSPACE  &kp ENTER
-                                       &mkp MB1   &mo 1         &kp DELETE
-            >;
-
-            trackball-bindings = <&tmv_coarse>;
-        };
-
-        layer_1 {
-            bindings = <
-&kp F1          &kp F2  &kp F3  &kp F4        &kp F5     &kp F6        &kp F7     &kp F8      &kp F9      &kp F10            &kp F11  &kp F12
-&kp CAPS        &none   &none   &none         &none      &bt BT_NXT    &none      &none       &kp UP      &none              &none    &none
-&kp LEFT_SHIFT  &none   &none   &none         &none      &bt BT_CLR    &none      &kp LEFT    &kp DOWN    &kp RIGHT          &none    &none
-&kp LCTRL       &none   &none   &none         &none      &none         &none      &none       &kp PERIOD  &kp RIGHT_BRACKET  &none    &kp EQUAL
-                                &kp LEFT_WIN  &kp SPACE  &none         &kp LALT   &kp DELETE
-                                              &mkp MB1   &mkp MB2      &kp ENTER
-            >;
-
-            trackball-bindings = <&tsl>;
-        };
-
-        layer_2 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
+    &tog BANK  &kp LG(V)  &kp LC(C)  &kp LC(V)  &kp LC(X)  &kp LS(LC(V))    &kp K_CALC &kp PSCRN  &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP &sl SYM
+    &kp LWIN   &kp Q      &kp W      &kp E      &kp R      &kp T            &kp Y      &kp U      &kp I      &kp O        &kp P        &none
+    &kp LALT   &kp A      &kp S      &kp D      &kp F      &kp G            &kp H      &kp J      &kp K      &kp L        &kp SEMI     &kp SQT
+    &kp LCTRL  &kp Z      &kp X      &kp C      &kp V      &kp B            &kp N      &kp M      &kp COMMA  &kp DOT      &kp FSLH     &kp LSHFT
+                          &kp ESC    &kp TAB    &sl EXCEL  &kp SPACE        &kp ENTER  &kp BSPC   &kp DEL    &none
             >;
         };
 
-        /* layer_2 {
+        [span_9](start_span)// LAYER 1 : NUM & NAVI (EXCEL)[span_9](end_span)
+        excel_layer {
             bindings = <
-&none  &none   &none    &none   &none         &none         &kp N1         &none         &none     &none  &none   &to 0
-&none  &none   &none    &none   &none         &none         &none         &none          &rgb_ug RGB_BRD &rgb_ug RGB_BRI  &rgb_ug RGB_EFF   &rgb_ug RGB_TOG
-&none  &none   &none    &none   &none         &none         &none         &mkp LCLK     &mkp RCLK  &none  &none   &none
-&none  &none   &none    &none   &bt BT_NXT  &bt BT_CLR    &none         &none         &none     &none  &none   &none
-                                   &none         &none         &none         &none         &none
-                                                 &none         &none         &none
+    &kp F11    &kp F1     &kp F2     &kp F3     &kp F4     &kp F5           &kp F6     &kp F7     &kp F8     &kp F9       &kp F10      &kp F12
+    &none      &kp PG_UP  &kp HOME   &kp UP     &kp END    &kp INS          &kp FSLH   &kp N7     &kp N8     &kp N9       &kp PLUS     &none
+    &sl SYM    &kp PG_DN  &kp LEFT   &kp DOWN   &kp RIGHT  &kp K_APP        &kp STAR   &kp N4     &kp N5     &kp N6       &kp MINUS    &none
+    &kp ESC    &kp TAB    &kp BSPC   &kp DEL    &kp LC(Z)  &none            &kp N0     &kp N1     &kp N2     &kp N3       &kp EQUAL    &none
+                          &trans     &trans     &trans     &trans           &trans     &kp N0     &kp DOT    &trans
             >;
-          trackball-bindings = <&tsl>;
-            
         };
 
-       Mouse {
+        [span_10](start_span)[span_11](start_span)// LAYER 2 : MOUSE & BANK (왼손 텐키)[span_10](end_span)[span_11](end_span)
+        bank_layer {
             bindings = <
-&none        &none         &none         &none         &none      &none         &none       &none      &none         &none         &none         &none
-&none        &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 3  &none      &bt BT_CLR    &bt BT_CLR  &none      &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0  &none
-&none        &trans        &trans        &mkp MCLK     &trans     &none         &none       &trans     &mkp MCLK     &trans        &trans        &none
-&bootloader  &trans        &mkp RCLK     &mo 4         &mkp LCLK  &mo 5         &mo 5       &mkp LCLK  &mo 4         &mkp RCLK     &trans        &bootloader
-                                         &mo 5         &mkp LCLK  &mkp RCLK     &mkp RCLK   &mkp LCLK
-                                                       &none      &trans        &trans
+    &kp LC(W)  &kp K_BACK &none      &none      &none      &kp ENTER        &trans     &trans     &trans     &trans       &trans       &trans
+    &mkp MCLK  &mkp RCLK  &kp N9     &kp N8     &kp N7     &kp N0           &trans     &trans     &trans     &trans       &trans       &trans
+    &kp LSHFT  &none      &kp N6     &kp N5     &kp N4     &kp N0           &trans     &trans     &trans     &trans       &trans       &trans
+    &kp F5     &kp LCTRL  &kp N3     &kp N2     &kp N1     &kp DOT          &trans     &trans     &trans     &trans       &trans       &trans
+                          &trans     &trans     &none      &trans           &trans     &trans     &trans     &trans
             >;
-
-            
         };
 
-        layer_4 {
+        [span_12](start_span)[span_13](start_span)// LAYER 3 : SYMBOL[span_12](end_span)[span_13](end_span)
+        symbol_layer {
             bindings = <
-&trans  &trans  &trans     &trans     &trans     &trans       &trans     &trans     &trans     &trans     &trans  &trans
-&trans  &trans  &trans     &trans     &trans     &trans       &trans     &trans     &trans     &trans     &trans  &trans
-&trans  &trans  &trans     &mkp MCLK  &trans     &trans       &trans     &trans     &mkp MCLK  &trans     &trans  &trans
-&trans  &trans  &mkp RCLK  &trans     &mkp LCLK  &trans       &trans     &mkp LCLK  &trans     &mkp RCLK  &trans  &trans
-                           &trans     &mkp LCLK  &mkp RCLK    &mkp RCLK  &mkp LCLK
-                                      &trans     &trans       &trans
+    &none      &none      &none      &none      &none      &none            &none      &none      &none      &none        &none        &none
+    &none      &kp EXCL   &kp AT     &kp HASH   &kp DLLR   &kp PRCNT        &kp CARET  &kp AMPS   &kp STAR   &kp LPAR     &kp RPAR     &none
+    &none      &none      &none      &none      &none      &none            &none      &none      &none      &none        &none        &none
+    &none      &none      &kp LBRC   &kp RBRC   &kp LBKT   &kp RBKT         &kp SEMI   &kp COLON  &none      &none        &none        &none
+                          &trans     &trans     &trans     &trans           &trans     &trans     &trans     &trans
             >;
-                
-                
-                trackball-bindings = <&tsl>;
         };
-
-        layer_5 {
-            bindings = <
-&trans  &trans  &trans     &trans     &trans     &trans       &trans     &trans     &trans     &trans     &trans  &trans
-&trans  &trans  &trans     &trans     &trans     &trans       &trans     &trans     &trans     &trans     &trans  &trans
-&trans  &trans  &trans     &mkp MCLK  &trans     &trans       &trans     &trans     &mkp MCLK  &trans     &trans  &trans
-&trans  &trans  &mkp RCLK  &trans     &mkp LCLK  &trans       &trans     &mkp LCLK  &trans     &mkp RCLK  &trans  &trans
-                           &trans     &mkp LCLK  &mkp RCLK    &mkp RCLK  &mkp LCLK
-                                      &trans     &trans       &trans
-            >;
-                trackball-bindings = <&tmv_fine>;
-                
-        };*/
     };
 };
