@@ -1,4 +1,9 @@
-/* charybdis_right.overlay */
+/*
+ * Copyright (c) 2020 ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+ 
 #include "charybdis.dtsi"
 
 &default_transform {
@@ -6,28 +11,26 @@
 };
 
 &kscan0 {
-    col-gpios
-        = <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        , <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        , <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        , <&gpio1 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        , <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        , <&gpio1 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        ;
+	col-gpios
+		= <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&gpio1 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		, <&gpio1 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+		;
 };
 
-// 트랙볼 핀 설정 (구버전 문법 - 이게 에러가 안 납니다)
+// trackball bus
 &spi0 {
-    status = "okay";
-    sck-pin = <8>;
-    mosi-pin = <17>;
-    miso-pin = <17>;
-    cs-gpios = <&gpio0 20 GPIO_ACTIVE_LOW>;
+	status = "okay"; //okay
+	sck-pin = <8>; //old
+    mosi-pin = <17>; //old
+    miso-pin = <17>;//old same as mosi (3-wire spi)
+	cs-gpios = <&gpio0 20 GPIO_ACTIVE_LOW>;
 };
 
-// 트랙볼 감도 설정
 &trackball {
-    status = "okay";
-    irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-    cpi = <1000>;  // 감도 1000 (숫자를 바꾸면 속도 조절 가능)
+	status = "okay"; //okay
+	irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
 };
