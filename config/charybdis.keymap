@@ -52,7 +52,7 @@
         [span_10](start_span)[span_11](start_span)// LAYER 2 : MOUSE & BANK (왼손 텐키)[span_10](end_span)[span_11](end_span)
         bank_layer {
             bindings = <
-&kp LC(W)  &kp K_BACK  &none   &none   &none   &kp ENTER    &trans  &trans  &trans  &trans  &trans  &trans
+&kp LC(W)  &kp K_BACK  &none   &none   &none   &kp ENTER    &to 0   &trans  &trans  &trans  &trans  &trans
 &mkp MCLK  &mkp RCLK   &kp N9  &kp N8  &kp N7  &kp N0       &trans  &trans  &trans  &trans  &trans  &trans
 &kp LSHFT  &none       &kp N6  &kp N5  &kp N4  &kp N0       &trans  &trans  &trans  &trans  &trans  &trans
 &kp F5     &kp LCTRL   &kp N3  &kp N2  &kp N1  &kp DOT      &trans  &trans  &trans  &trans  &trans  &trans
@@ -70,6 +70,17 @@
 &none  &none     &kp LBRC  &kp RBRC  &kp LBKT  &kp RBKT     &kp SEMI   &kp COLON  &none     &none     &none     &none
                            &trans    &trans    &trans       &trans     &trans
                                      &trans    &trans       &trans
+            >;
+        };
+
+        layer_4 {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans    &trans  &trans
+                                &trans  &trans    &trans
             >;
         };
     };
