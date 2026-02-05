@@ -3,6 +3,10 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
+// ▼▼▼ 여기에 붙여넣으세요 ▼▼▼
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1500  // 속도 1500 (기본 600)
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 20    // 스크롤 20 (기본 10)
+// ▲▲▲ 여기까지 ▲▲▲
 
 &lt {
     tapping-term-ms = <200>;
