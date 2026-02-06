@@ -5,7 +5,14 @@
 #include <dt-bindings/zmk/pointing.h>
 
 
- {
+
+
+&lt {
+    tapping-term-ms = <200>;
+    flavor = "balanced";
+    quick-tap-ms = <150>;
+};
+/ {
     /* 1. 가속기(Scaler) 만들기 */
     input_processors {
         zip_boost: zip_boost {
@@ -33,14 +40,6 @@
             input-processors = <&zip_boost>; 
         };
     };
-    지 ▲▲▲
-
-&lt {
-    tapping-term-ms = <200>;
-    flavor = "balanced";
-    quick-tap-ms = <150>;
-};
-
 / {
     macros {
         duplicate0: duplicate0 {
