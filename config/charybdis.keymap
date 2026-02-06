@@ -1,6 +1,7 @@
 /* ▼▼▼ [속도 조절] 숫자가 클수록 빠릅니다 (기본값: 600) ▼▼▼ */
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 3000  /* 마우스 속도 5배 */
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 50    /* 스크롤 속도 5배 */
+/* 현재 3000으로 설정하여 기본보다 5배 빠릅니다. */
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 3000
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 50
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
@@ -16,9 +17,18 @@
 };
 
 / {
-    /* 2. 동작 정의 (복잡한 가속기 제거함) */
+    /* 2. 동작 정의 (에러 나는 input_processors 싹 제거함) */
     behaviors {
-        /* 스크롤 모드 정의 (tsl) */
+        /* (1) 기본 이동 동작 (위의 define 설정인 3000 속도를 따름) */
+        /* tmv_coarse 이름을 명시적으로 정의하여 에러 방지 */
+        tmv_coarse: trackball_move_coarse {
+            compatible = "zmk,behavior-input-two-axis";
+            #binding-cells = <1>;
+            x-input-code = <INPUT_REL_X>;
+            y-input-code = <INPUT_REL_Y>;
+        };
+
+        /* (2) 스크롤 모드 정의 (tsl) */
         tsl: behavior_trackball_scroll {
             compatible = "zmk,behavior-input-two-axis";
             #binding-cells = <1>;
@@ -41,7 +51,7 @@
     keymap {
         compatible = "zmk,keymap";
 
-        /* Layer 0: Base (사용자 지정 단축키 복원) */
+        /* Layer 0: Base (복사/붙여넣기 단축키 유지) */
         Base {
             bindings = <
 &sk LEFT_GUI    &kp GRAVE  &kp LC(X)  &kp LC(C)  &kp LC(V)    &kp LC(LS(V))    &kp LG(E)      &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp LBKT    &kp RBKT  &sk LEFT_GUI
@@ -51,7 +61,7 @@
                                       &lt 1 TAB  &lt 2 SPACE  &mkp LCLK        &kp BACKSPACE  &kp ENTER
                                                  &kp ESCAPE   &mkp MB2         &kp DEL
             >;
-            /* 기본 이동 동작 사용 (위의 define 설정 때문에 빨라짐) */
+            /* 여기서 tmv_coarse를 사용합니다 (속도 3000) */
             trackball-bindings = <&tmv_coarse>; 
         };
 
