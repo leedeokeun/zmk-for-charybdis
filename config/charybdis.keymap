@@ -6,7 +6,7 @@
 
 // ▼▼▼ 여기에 붙여넣으세요 ▼▼▼
 
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 1500  // 속도 5000 (기본 600)
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 5000  // 속도 5000 (기본 600)
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 20    // 스크롤 20 (기본 10)
 
 // ▲▲▲ 여기까지 ▲▲▲
