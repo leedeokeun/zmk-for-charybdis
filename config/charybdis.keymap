@@ -12,7 +12,7 @@
 };
 
 / {
-    /* 1. 가속기(Scaler) 정의: 기본 속도 3배 뻥튀기 */
+    /* 1. [기능 추가] 속도 3배 부스터 */
     input_processors {
         zip_boost: zip_boost {
             compatible = "zmk,input-processor-scaler";
@@ -20,32 +20,32 @@
             type = <INPUT_EV_REL>;
             codes = <INPUT_REL_X INPUT_REL_Y>;
             track-remainders;
-            scale-multiplier = <3>;  /* ★ 속도 배율 (3배) */
+            scale-multiplier = <3>;  /* 속도 3배 */
             scale-divisor = <1>;
         };
     };
 
-    /* 2. 트랙볼 동작 정의 */
+    /* 2. [기능 추가] 동작 정의 (기존 이름 그대로 사용하여 키맵 수정 불필요) */
     behaviors {
-        /* (1) 고속 이동 모드 (이름을 tmv_turbo로 변경하여 충돌 방지) */
-        tmv_turbo: trackball_move_turbo {
+        /* 원래 쓰시던 tmv_coarse에 부스터만 몰래 장착 */
+        tmv_coarse: trackball_move_coarse {
             compatible = "zmk,behavior-input-two-axis";
             #binding-cells = <1>;
             x-input-code = <INPUT_REL_X>;
             y-input-code = <INPUT_REL_Y>;
-            input-processors = <&zip_boost>; /* 가속기 장착 */
+            input-processors = <&zip_boost>; 
         };
 
-        /* (2) 스크롤 모드 (이게 빠져서 에러가 났었습니다) */
+        /* 스크롤 기능 정의 (tsl) */
         tsl: behavior_trackball_scroll {
             compatible = "zmk,behavior-input-two-axis";
             #binding-cells = <1>;
-            x-input-code = <INPUT_REL_HWHEEL>; /* 가로 스크롤 */
-            y-input-code = <INPUT_REL_WHEEL>;  /* 세로 스크롤 */
+            x-input-code = <INPUT_REL_HWHEEL>;
+            y-input-code = <INPUT_REL_WHEEL>;
         };
     };
 
-    /* 3. 매크로 정의 */
+    /* 3. 매크로 (원래 쓰시던 것) */
     macros {
         duplicate0: duplicate0 {
             compatible = "zmk,behavior-macro";
@@ -55,17 +55,73 @@
         };
     };
 
-    /* 4. 키맵 시작 */
+    /* 4. 키맵 (사용자님이 설정한 그대로!) */
     keymap {
         compatible = "zmk,keymap";
 
-        /* Layer 0: Base (기본 레이어) */
+        /* Layer 0: Base (복붙, 괄호 등 사용자 설정 유지) */
         Base {
             bindings = <
-&sk LEFT_GUI    &kp N1     &kp N2     &kp N3     &kp N4       &kp N5           &kp N6          &kp N7         &kp N8         &kp N9         &kp N0        &sk LEFT_GUI
-&sk LEFT_SHIFT  &kp Q      &kp W      &kp E      &kp R        &kp T            &kp Y           &kp U          &kp I          &kp O          &kp P         &sk LEFT_SHIFT
-&sk LCTRL       &kp A      &kp S      &kp D      &kp F        &kp G            &kp H           &kp J          &kp K          &kp L          &kp SEMI      &sk LCTRL
-&sk LEFT_ALT    &kp Z      &kp X      &kp C      &kp V        &kp B            &kp N           &kp M          &kp COMMA      &kp PERIOD     &kp FSLH      &sk LALT
+&sk LEFT_GUI    &kp LC(Z)  &kp LC(X)  &kp LC(C)  &kp LC(V)    &kp LC(LS(V))    &kp LG(E)       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp LBKT    &kp RBKT  &sk LEFT_GUI
+&sk LCTRL       &kp Q      &kp W      &kp E      &kp R        &kp T            &kp Y           &kp U                 &kp I                  &kp O       &kp P     &sk LCTRL
+&sk LEFT_SHIFT  &kp A      &kp S      &kp D      &kp F        &kp G            &kp H           &kp J                 &kp K                  &kp L       &kp SEMI  &sk LEFT_SHIFT
+&sk LEFT_ALT    &kp Z      &kp X      &kp C      &kp V        &kp B            &kp N           &kp M                 &kp COMMA              &kp PERIOD  &kp FSLH  &sk LALT
+                                      &lt 1 TAB  &lt 2 SPACE  &mkp LCLK        &kp BACKSPACE   &kp ENTER
+                                                 &kp ESCAPE   &mkp MB2         &kp DEL
+            >;
+            trackball-bindings = <&tmv_coarse>; /* 자동으로 3배 빨라짐 */
+        };
+
+        /* Layer 1: ArrNum (F키, 방향키 등 사용자 설정 유지) */
+        ArrNum {
+            bindings = <
+&kp F1    &kp F2         &kp F3          &kp F4          &kp F5           &kp F6           &kp F7    &kp F8        &kp F9        &kp F10       &kp F11       &kp F12
+&kp CAPS  &kp LG(LS(S))  &kp HOME        &kp UP_ARROW    &kp END          &kp PG_UP        &kp N5    &kp NUMBER_6  &kp N7        &kp N8        &kp N9        &kp PLUS
+&none     &kp LC(LS(V))  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp PAGE_DOWN    &kp N0    &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp EQUAL
+&none     &kp LC(Z)      &kp LC(X)       &kp LC(C)       &kp LC(V)        &none            &duplicate0  &kp MINUS     &kp COMMA     &kp DOT       &kp SLASH     &kp ASTERISK
+                                         &trans          &trans           &trans           &trans    &trans
+                                                         &trans           &trans           &trans
+            >;
+            trackball-bindings = <&tsl>; /* 스크롤 작동 */
+        };
+
+        /* Layer 2: MouseAid (블루투스, 숫자패드 등 사용자 설정 유지) */
+        MouseAid {
+            bindings = <
+&none          &none   &none   &none   &none   &none         &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
+&kp C_AC_BACK  &kp N9  &kp N8  &kp N7  &kp N6  &kp N5        &trans      &trans        &trans        &trans        &trans        &trans
+&kp ENTER      &kp N4  &kp N3  &kp N2  &kp N1  &kp N0        &trans      &trans        &trans        &trans        &trans        &trans
+&trans         &trans  &trans  &trans  &trans  &kp ENTER     &trans      &trans        &trans        &trans        &trans        &trans
+                               &trans  &trans  &trans        &trans      &trans
+                                       &trans  &trans        &trans
+            >;
+        };
+
+        /* Layer 3: Trackball Acc (Empty) - 유지 */
+        TrackballAcc {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans    &trans  &trans
+                                &trans  &trans    &trans
+            >;
+        };
+
+        /* Layer 4: Trackball Scroll (Empty) - 유지 */
+        TrackballScroll {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans    &trans  &trans
+                                &trans  &trans    &trans
+            >;
+        };
+    };
+};
                                       &lt 1 TAB  &lt 2 SPACE  &mkp LCLK        &kp BACKSPACE   &kp ENTER
                                                  &kp ESCAPE   &mkp MB2         &kp DEL
             >;
