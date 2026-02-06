@@ -45,12 +45,12 @@
 
         layer_1 {
             bindings = <
-&kp F1            &kp F2         &kp F3          &kp F4          &kp F5           &kp F6             &kp F7       &kp F8        &kp F9        &kp F10       &kp F11       &kp F12
-&kp CAPS          &kp LG(LS(S))  &kp HOME        &kp UP_ARROW    &kp END          &kp PG_UP          &kp N5       &kp NUMBER_6  &kp N7        &kp N8        &kp N9        &kp PLUS
-&mmv MOVE_X(600)  &kp LC(LS(V))  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp PAGE_DOWN      &kp N0       &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp EQUAL
-&none             &kp LC(Z)      &kp LC(X)       &kp LC(C)       &kp LC(V)        &msc MOVE_X(10)    &duplicate0  &kp MINUS     &kp COMMA     &kp DOT       &kp SLASH     &kp ASTERISK
-                                                 &trans          &trans           &trans             &trans       &trans
-                                                                 &trans           &trans             &trans
+&kp F1    &kp F2         &kp F3          &kp F4          &kp F5           &kp F6           &kp F7       &kp F8        &kp F9        &kp F10       &kp F11       &kp F12
+&kp CAPS  &kp LG(LS(S))  &kp HOME        &kp UP_ARROW    &kp END          &kp PG_UP        &kp N5       &kp NUMBER_6  &kp N7        &kp N8        &kp N9        &kp PLUS
+&none     &kp LC(LS(V))  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp PAGE_DOWN    &kp N0       &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp EQUAL
+&none     &kp LC(Z)      &kp LC(X)       &kp LC(C)       &kp LC(V)        &none            &duplicate0  &kp MINUS     &kp COMMA     &kp DOT       &kp SLASH     &kp ASTERISK
+                                         &trans          &trans           &trans           &trans       &trans
+                                                         &trans           &trans           &trans
             >;
 
             trackball-bindings = <&tsl>;
