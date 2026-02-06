@@ -45,36 +45,25 @@
 
         layer_1 {
             bindings = <
-&kp F1      &kp F2         &kp F3          &kp F4          &kp F5           &kp F6           &kp F7       &kp F8        &kp F9        &kp F10       &kp F11       &kp F12
-&kp CAPS    &kp LA(E)      &kp HOME        &kp UP_ARROW    &kp END          &kp PG_UP        &kp N5       &kp NUMBER_6  &kp N7        &kp N8        &kp N9        &kp ASTERISK
-&bt BT_CLR  &kp LG(LS(S))  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp PAGE_DOWN    &kp N0       &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp SLASH
-&bt BT_NXT  &kp LC(Z)      &kp LC(X)       &kp LC(C)       &kp LC(V)        &kp LC(LS(V))    &duplicate0  &kp DOT       &kp MINUS     &kp PLUS      &kp EQUAL     &kp ASTERISK
-                                           &trans          &trans           &trans           &trans       &trans
-                                                           &trans           &trans           &trans
+&kp F1    &kp F2         &kp F3          &kp F4          &kp F5           &kp F6             &kp F7       &kp F8        &kp F9        &kp F10       &kp F11       &kp F12
+&kp CAPS  &kp LG(LS(S))  &kp HOME        &kp UP_ARROW    &kp END          &kp PG_UP          &kp N5       &kp NUMBER_6  &kp N7        &kp N8        &kp N9        &kp PLUS
+&none     &kp LC(LS(V))  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp PAGE_DOWN      &kp N0       &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp EQUAL
+&none     &kp LC(Z)      &kp LC(X)       &kp LC(C)       &kp LC(V)        &msc MOVE_X(10)    &duplicate0  &kp MINUS     &kp COMMA     &kp DOT       &kp SLASH     &kp ASTERISK
+                                         &trans          &trans           &trans             &trans       &trans
+                                                         &trans           &trans             &trans
             >;
 
             trackball-bindings = <&tsl>;
         };
 
-        layer_2 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &gresc    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
-            >;
-        };
-
         layer_3 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
+&bt BT_CLR     &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &trans  &trans  &trans  &trans  &trans  &trans
+&kp C_AC_BACK  &kp N9        &kp N8        &kp N7        &kp N6        &kp N5          &trans  &trans  &trans  &trans  &trans  &trans
+&kp ENTER      &kp N4        &kp N3        &kp N2        &kp N1        &kp N0          &trans  &trans  &trans  &trans  &trans  &trans
+&trans         &trans        &trans        &trans        &trans        &kp ENTER       &trans  &trans  &trans  &trans  &trans  &trans
+                                           &trans        &trans        &trans          &trans  &trans
+                                                         &trans        &trans          &trans
             >;
         };
 
