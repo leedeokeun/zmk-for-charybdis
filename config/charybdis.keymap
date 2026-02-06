@@ -4,12 +4,36 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 
-// ▼▼▼ 여기에 붙여넣으세요 ▼▼▼
 
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 5000  // 속도 5000 (기본 600)
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 20    // 스크롤 20 (기본 10)
+/ {
+    /* 1. 가속기(Scaler) 만들기 */
+    input_processors {
+        zip_boost: zip_boost {
+            compatible = "zmk,input-processor-scaler";
+            #input-processor-cells = <2>;
+            type = <INPUT_EV_REL>;
+            codes = <INPUT_REL_X INPUT_REL_Y>;
+            track-remainders;
+            
+            /* ★ 핵심: 여기 숫자를 바꾸세요 ★ */
+            scale-multiplier = <3>;  /* 3배 빠르게 (기본값 1) */
+            scale-divisor = <1>;
+        };
+    };
 
-// ▲▲▲ 여기까지 ▲▲▲
+    /* 2. 동작(Behavior)에 가속기 장착하기 */
+    behaviors {
+        /* 기존 tmv_coarse 동작을 덮어씌움 */
+        tmv_coarse: trackball_move_coarse {
+            compatible = "zmk,behavior-input-two-axis";
+            #binding-cells = <1>;
+            x-input-code = <INPUT_REL_X>;
+            y-input-code = <INPUT_REL_Y>;
+            /* 위에서 만든 가속기 적용 */
+            input-processors = <&zip_boost>; 
+        };
+    };
+    지 ▲▲▲
 
 &lt {
     tapping-term-ms = <200>;
