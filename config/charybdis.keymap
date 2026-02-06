@@ -5,7 +5,7 @@
 #include <dt-bindings/zmk/pointing.h>
 
 
-/ {
+ {
     /* 1. 가속기(Scaler) 만들기 */
     input_processors {
         zip_boost: zip_boost {
