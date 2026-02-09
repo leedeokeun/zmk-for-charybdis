@@ -12,31 +12,18 @@
 };
 
 / {
-    /* 2. [핵심] 가속기(Scaler) 만들기: 속도 3배 */
-    input_processors {
-        zip_boost: zip_boost {
-            compatible = "zmk,input-processor-scaler";
-            #input-processor-cells = <2>;
-            type = <INPUT_EV_REL>;
-            codes = <INPUT_REL_X INPUT_REL_Y>;
-            track-remainders;
-            scale-multiplier = <3>;  /* ★ 속도 3배 (숫자 바꾸면 조절 가능) */
-            scale-divisor = <1>;
-        };
-    };
-
-    /* 3. 동작 정의 */
+  
+  /* 2. 동작 정의 (복잡한 가속 코드 삭제함) */
     behaviors {
-        /* (1) 부스터 장착된 이동 모드 */
-        tmv_turbo: trackball_move_turbo {
+        /* 기본 이동 (속도는 overlay 파일의 cpi 설정을 따라감) */
+        tmv_coarse: trackball_move_coarse {
             compatible = "zmk,behavior-input-two-axis";
             #binding-cells = <1>;
             x-input-code = <INPUT_REL_X>;
             y-input-code = <INPUT_REL_Y>;
-            input-processors = <&zip_boost>; /* 여기서 가속기 장착 */
         };
 
-        /* (2) 스크롤 모드 */
+        /* 스크롤 모드 */
         tsl: behavior_trackball_scroll {
             compatible = "zmk,behavior-input-two-axis";
             #binding-cells = <1>;
