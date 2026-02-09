@@ -20,8 +20,6 @@
             type = <INPUT_EV_REL>;
             codes = <INPUT_REL_X INPUT_REL_Y>;
             track-remainders;
-            scale-multiplier = <3>;  /* 3배 빠름 */
-            scale-divisor = <1>;
         };
     };
 
@@ -33,7 +31,8 @@
             #binding-cells = <1>;
             x-input-code = <INPUT_REL_X>;
             y-input-code = <INPUT_REL_Y>;
-            input-processors = <&zip_boost>; 
+            time-to-max-speed-ms = <300>;
+            input-processors = <&zip_boost 3 1>;
         };
 
         /* 스크롤 */
@@ -42,6 +41,7 @@
             #binding-cells = <1>;
             x-input-code = <INPUT_REL_HWHEEL>;
             y-input-code = <INPUT_REL_WHEEL>;
+            time-to-max-speed-ms = <300>;
         };
     };
 
