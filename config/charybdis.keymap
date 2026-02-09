@@ -29,6 +29,7 @@
         tmv_turbo: trackball_move_turbo {
             compatible = "zmk,behavior-input-two-axis";
             #binding-cells = <1>;
+            #trackball-binding-cells = <0>;
             x-input-code = <0x00>;  /* INPUT_REL_X */
             y-input-code = <0x01>;  /* INPUT_REL_Y */
             time-to-max-speed-ms = <300>;
@@ -39,6 +40,7 @@
         tsl: behavior_trackball_scroll {
             compatible = "zmk,behavior-input-two-axis";
             #binding-cells = <1>;
+            #trackball-binding-cells = <0>;
             x-input-code = <0x06>;  /* INPUT_REL_HWHEEL */
             y-input-code = <0x08>;  /* INPUT_REL_WHEEL */
             time-to-max-speed-ms = <300>;
